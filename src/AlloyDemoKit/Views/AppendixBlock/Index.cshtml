@@ -1,0 +1,23 @@
+﻿@using EPiServer.Editor
+@model AppendixBlock
+
+<section class="appendix element u-trailer">
+
+    @if (Model.HasHeading || PageEditing.PageIsInEditMode)
+    {
+        <h2 class="small-heading">@Html.PropertyFor(m => m.Heading)</h2>
+    }
+
+    <ul class="appendix__list">
+        @foreach (var item in Model.AppendixItems)
+        {
+            string appendixType = item.AppendixType.ToString().ToLower();
+            <li class="appendix__item">
+                <a href="@Url.ContentUrl(item.Url)" class="@appendixType">
+                    <svg class="icon icon--large"><use xlink:href="/UI/svg-defs.svg#ic-@appendixType" /></svg>
+                    <span>@Html.DisplayFor(m => item.Text)</span>
+                </a>
+            </li>
+        }
+    </ul>
+</section>
